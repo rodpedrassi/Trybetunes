@@ -18,7 +18,6 @@ class Content extends Component {
           <Route exact path="/album/:id" component={ Album } />
           <Route exact path="/favorites" component={ Favorites } />
           <Route exact path="/login" component={ Login } />
-          <Route exact path="/notFound" component={ NotFound } />
           <Route exact path="/profile/" component={ Profile } />
           <Route exact path="/profile/edit" component={ ProfileEdit } />
           <Route path="*" exact component={ NotFound } />
