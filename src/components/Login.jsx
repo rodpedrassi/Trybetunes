@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { createUser } from '../services/userAPI';
-import Loading from '../components/Loading';
+import Loading from './Loading';
 
 export default class Login extends Component {
   state = {
@@ -70,6 +70,10 @@ export default class Login extends Component {
 }
 
 Login.propTypes = {
-  history: PropTypes.shape.isRequired,
-  push: PropTypes.func.isRequired,
+  history: PropTypes.shape,
+  push: PropTypes.func,
+};
+Login.defaultProps = {
+  history: PropTypes.objectOf(PropTypes.any),
+  push: PropTypes.func,
 };
