@@ -1,25 +1,32 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { createUser } from '../services/userAPI';
+import Loading from '../components/Loading';
 
 export default class Login extends Component {
   state = {
     buttonIsDisabled: true,
     inputUsuario: '',
-  }
+    loading: false,
+  };
 
   didPressClick = async () => {
     const { inputUsuario } = this.state;
-    const { history } = this.props;
+    this.setState({ loading: true });
     await createUser({ name: inputUsuario });
 
+    const { history } = this.props;
     history.push('/search');
-  }
+  };
 
   handleChange = ({ name, value }) => {
-    this.setState({
-      [name]: value,
-    }, this.handleButtonDisable);
-  }
+    this.setState(
+      {
+        [name]: value,
+      },
+      this.handleButtonDisable,
+    );
+  };
 
   handleButtonDisable = () => {
     const { inputUsuario } = this.state;
@@ -28,11 +35,13 @@ export default class Login extends Component {
     this.setState({
       buttonIsDisabled: checkUsuarioInput,
     });
-  }
+  };
 
   render() {
-    const { buttonIsDisabled, inputUsuario } = this.state;
-    return (
+    const { buttonIsDisabled, inputUsuario, loading } = this.state;
+    return loading ? (
+      <Loading />
+    ) : (
       <div data-testid="page-login">
         <h2>Login</h2>
         <label htmlFor="inputUsuario">
@@ -59,3 +68,8 @@ export default class Login extends Component {
     );
   }
 }
+
+Login.propTypes = {
+  history: PropTypes.shape.isRequired,
+  push: PropTypes.func.isRequired,
+};
