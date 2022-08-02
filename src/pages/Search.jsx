@@ -7,6 +7,7 @@ import '../css/search.css';
 export default class Search extends Component {
   state = {
     search: '',
+    searchedArtist: '',
     isButtonDisabled: true,
     loading: false,
     listaArtistas: [],
@@ -33,8 +34,9 @@ export default class Search extends Component {
 
   onSearchClick = async (e) => {
     e.preventDefault();
-    this.setState({ search: '', loading: true });
     const { search } = this.state;
+    this.setState({ searchedArtist: search });
+    this.setState({ search: '', loading: true });
     const newListaArtistas = await searchAlbumsAPIs(search);
     this.setState({ loading: false });
     if (newListaArtistas.length === 0) {
@@ -51,6 +53,7 @@ export default class Search extends Component {
       loading,
       listaArtistas,
       hasntFind,
+      searchedArtist,
     } = this.state;
     return (
       <div data-testid="page-search">
@@ -88,7 +91,7 @@ export default class Search extends Component {
               <h4>
                 Resultado de álbuns de:
                 {' '}
-                { search }
+                { searchedArtist }
               </h4>
               {listaArtistas.map((artista) => (
                 <Link
