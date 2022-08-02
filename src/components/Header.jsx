@@ -19,7 +19,6 @@ class Header extends Component {
 
   getUserName = async () => {
     const userName = await getUser();
-    console.log(userName);
     this.setState({ user: userName });
   }
 
@@ -34,10 +33,10 @@ class Header extends Component {
 
         <h4>Trybe Tunes</h4>
         <nav>
-          <Link to="/search">Search</Link>
+          <Link to="/search" data-testid="link-to-search">Search</Link>
           <Link to="/album">Album</Link>
-          <Link to="/favorites">Favoritos</Link>
-          <Link to="/profile">Profile</Link>
+          <Link to="/favorites" data-testid="link-to-favorites">Favoritos</Link>
+          <Link to="/profile" data-testid="link-to-profile">Profile</Link>
           <Link to="/profile/edit">Editar Profile</Link>
         </nav>
         {loading
