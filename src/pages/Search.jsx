@@ -10,6 +10,7 @@ export default class Search extends Component {
     isButtonDisabled: true,
     loading: false,
     listaArtistas: [],
+    hasntFind: false,
   };
 
   handleChange = ({ name, value }) => {
@@ -36,11 +37,21 @@ export default class Search extends Component {
     const { search } = this.state;
     const newListaArtistas = await searchAlbumsAPIs(search);
     this.setState({ loading: false });
-    this.setState({ listaArtistas: newListaArtistas });
+    if (newListaArtistas.length === 0) {
+      this.setState({ hasntFind: true });
+    } else {
+      this.setState({ listaArtistas: newListaArtistas });
+    }
   };
 
   render() {
-    const { search, isButtonDisabled, loading, listaArtistas } = this.state;
+    const {
+      search,
+      isButtonDisabled,
+      loading,
+      listaArtistas,
+      hasntFind,
+    } = this.state;
     return (
       <div data-testid="page-search">
         {loading ? (
@@ -70,10 +81,15 @@ export default class Search extends Component {
           </form>
         )}
         <div className="content">
-          {listaArtistas === [] ? (
+          {listaArtistas.length === 0 && hasntFind ? (
             <h4>Nenhum álbum foi encontrado</h4>
           ) : (
             <ul>
+              <h4>
+                Resultado de álbuns de:
+                {' '}
+                { search }
+              </h4>
               {listaArtistas.map((artista) => (
                 <Link
                   to={ `/album/${artista.collectionId}` }
