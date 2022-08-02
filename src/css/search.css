@@ -1,0 +1,24 @@
+.content {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.artist-box {
+  background-color: cornsilk;
+  border: 1px solid gray;
+  display: inline-block;
+  margin: 10px 0 0 2%;
+}
+
+.artist-box span {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+
+.artist-box img {
+  display: block;
+  height: 180px;
+  margin: 0 auto;
+  width: 200px;
+}
