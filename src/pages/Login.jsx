@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { createUser } from '../services/userAPI';
-import Loading from './Loading';
+import Loading from '../components/Loading';
 
 export default class Login extends Component {
   state = {
@@ -24,6 +24,7 @@ export default class Login extends Component {
       {
         [name]: value,
       },
+
       this.handleButtonDisable,
     );
   };
@@ -36,6 +37,11 @@ export default class Login extends Component {
       buttonIsDisabled: checkUsuarioInput,
     });
   };
+
+  // componentWillUnmount = () => {
+  //   const { inputUsuario } = this.state;
+  //   localStorage.setItem('user', inputUsuario);
+  // }
 
   render() {
     const { buttonIsDisabled, inputUsuario, loading } = this.state;

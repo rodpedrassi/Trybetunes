@@ -7,17 +7,19 @@ import Loading from './Loading';
 
 class Header extends Component {
   state = {
-    loading: false,
-    user: {},
+    loading: true,
+    user: 'alo',
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     this.setState({ loading: true });
-    this.getUserName().then(this.setState({ loading: false }));
+    await this.getUserName();
+    this.setState({ loading: false });
   }
 
   getUserName = async () => {
     const userName = await getUser();
+    console.log(userName);
     this.setState({ user: userName });
   }
 
