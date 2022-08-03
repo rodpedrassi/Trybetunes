@@ -26,16 +26,18 @@ export default class Album extends Component {
 
   render() {
     const { artistName, albunName, artwork, albumMusics } = this.state;
+    const filteredMusics = albumMusics.filter((music) => music.kind === 'song');
     return (
+
       <div data-testid="page-album">
         <h4 data-testid="artist-name">{artistName}</h4>
         <h4 data-testid="album-name">{albunName}</h4>
         <img src={ artwork } alt="" />
-        {albumMusics.map((music, index) => (index !== 0 ? (
+        {filteredMusics.map((music) => (
           <div key={ music.trackId } className="musicTracks">
             <MusicCard music={ music } />
           </div>
-        ) : null))}
+        ))}
       </div>
     );
   }
