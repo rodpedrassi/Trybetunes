@@ -33,7 +33,7 @@ export default class Album extends Component {
         <img src={ artwork } alt="" />
         {albumMusics.map((music, index) => (index !== 0 ? (
           <div key={ music.trackId } className="musicTracks">
-            <MusicCard music={ music } />
+            <MusicCard song={ music } />
           </div>
         ) : null))}
       </div>
