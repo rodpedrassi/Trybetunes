@@ -21,7 +21,6 @@ export default class Album extends Component {
       artwork: musicsByAlbunId[0].artworkUrl100,
       albumMusics: musicsByAlbunId,
     });
-    // console.log(musicsByAlbunId[0].artistName);
   }
 
   render() {
@@ -35,7 +34,7 @@ export default class Album extends Component {
         <img src={ artwork } alt="" />
         {filteredMusics.map((music) => (
           <div key={ music.trackId } className="musicTracks">
-            <MusicCard song={ music } />
+            <MusicCard music={ music } />
           </div>
         ))}
       </div>
