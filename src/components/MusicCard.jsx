@@ -23,7 +23,7 @@ export default class MusicCard extends Component {
     this.setState({ loading: false });
   }
 
-  async addFavSong(music) {
+  async addRemoveFavSong(music) {
     const { isChecked } = this.state;
     this.setState({ loading: true });
     if (!isChecked) {
@@ -58,7 +58,7 @@ export default class MusicCard extends Component {
             type="checkbox"
             name={ trackId }
             id={ trackId }
-            onChange={ () => this.addFavSong(music) }
+            onChange={ () => this.addRemoveFavSong(music) }
             checked={ isChecked }
           />
         </label>
