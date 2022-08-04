@@ -34,7 +34,7 @@ export default class Album extends Component {
         <img src={ artwork } alt="" />
         {filteredMusics.map((music) => (
           <div key={ music.trackId } className="musicTracks">
-            <MusicCard music={ music } />
+            <MusicCard music={ music } getFavories={ this.getFavorites } />
           </div>
         ))}
       </div>

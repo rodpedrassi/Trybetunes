@@ -11,26 +11,31 @@ export default class Favorites extends Component {
 
   async componentDidMount() {
     this.setState({ loading: true });
-    const myFavSongs = await getFavoriteSongs();
-    this.setState({ loading: false, favSongs: myFavSongs });
+    await this.getFavorites();
+    this.setState({ loading: false });
   }
 
-  render() {
-    const { loading, favSongs } = this.state;
-    return (
-      <div data-testid="page-favorites">
-        {loading ? (
-          <Loading />
-        ) : (
-          <div>
-            {favSongs.map((music) => (
-              <div key={ music.trackId } className="musicTracks">
-                <MusicCard music={ music } />
-              </div>
-            ))}
-          </div>
-        )}
-      </div>
-    );
-  }
+   getFavorites = async () => {
+     const myFavSongs = await getFavoriteSongs();
+     this.setState({ favSongs: myFavSongs });
+   }
+
+   render() {
+     const { loading, favSongs } = this.state;
+     return (
+       <div data-testid="page-favorites">
+         {loading ? (
+           <Loading />
+         ) : (
+           <div>
+             {favSongs.map((music) => (
+               <div key={ music.trackId } className="musicTracks">
+                 <MusicCard music={ music } getFavorites={ this.getFavorites } />
+               </div>
+             ))}
+           </div>
+         )}
+       </div>
+     );
+   }
 }

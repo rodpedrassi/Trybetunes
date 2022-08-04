@@ -6,33 +6,29 @@ import Loading from './Loading';
 export default class MusicCard extends Component {
   state = {
     loading: false,
-    isChecked: false,
     favorites: [],
   };
 
   async componentDidMount() {
     this.setState({ loading: true });
     const favoritos = await getFavoriteSongs();
-    this.setState({ favorites: favoritos }, () => {
-      const { favorites } = this.state;
-      const { music } = this.props;
+    this.setState({ favorites: favoritos, loading: false });
+  }
 
-      const checkFav = favorites.some((song) => song.trackId === music.trackId);
-      this.setState({ isChecked: checkFav });
-    });
+  componentWillUnmount() {
     this.setState({ loading: false });
   }
 
-  async addRemoveFavSong(music) {
-    const { isChecked } = this.state;
+  async handleOnChange(music, { target }) {
+    const { getFavorites = () => {} } = this.props;
     this.setState({ loading: true });
-    if (!isChecked) {
+    if (target.checked) {
       await addSong(music);
     } else {
       await removeSong(music);
     }
-    this.setState({ isChecked: !isChecked });
-    this.setState({ loading: false });
+    this.setState({ loading: false, favorites: await getFavoriteSongs() });
+    await getFavorites();
   }
 
   render() {
@@ -40,7 +36,7 @@ export default class MusicCard extends Component {
       music: { trackName, previewUrl, trackId },
     } = this.props;
     const { music } = this.props;
-    const { loading, isChecked } = this.state;
+    const { loading, favorites } = this.state;
 
     return loading ? (
       <Loading />
@@ -58,8 +54,8 @@ export default class MusicCard extends Component {
             type="checkbox"
             name={ trackId }
             id={ trackId }
-            onChange={ () => this.addRemoveFavSong(music) }
-            checked={ isChecked }
+            onChange={ (e) => this.handleOnChange(music, e) }
+            checked={ favorites.some((song) => song.trackId === music.trackId) }
           />
         </label>
       </div>
@@ -69,4 +65,5 @@ export default class MusicCard extends Component {
 
 MusicCard.propTypes = {
   music: PropTypes.shape.isRequired,
+  getFavorites: PropTypes.func.isRequired,
 };
