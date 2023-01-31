@@ -15,9 +15,13 @@ export default class Favorites extends Component {
     this.setState({ loading: false });
   }
 
-   getFavorites = async () => {
-     const myFavSongs = await getFavoriteSongs();
-     this.setState({ favSongs: myFavSongs });
+   getFavorites = async (myFavSongs) => {
+     if (myFavSongs) {
+       this.setState({ favSongs: myFavSongs });
+     } else {
+       const myFavoriteSongs = await getFavoriteSongs();
+       this.setState({ favSongs: myFavoriteSongs });
+     }
    }
 
    render() {

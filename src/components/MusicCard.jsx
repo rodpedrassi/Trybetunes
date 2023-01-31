@@ -27,8 +27,9 @@ export default class MusicCard extends Component {
     } else {
       await removeSong(music);
     }
-    this.setState({ loading: false, favorites: await getFavoriteSongs() });
-    await getFavorites();
+    const myFavSongs = await getFavoriteSongs();
+    this.setState({ loading: false, favorites: myFavSongs });
+    await getFavorites(myFavSongs);
   }
 
   render() {
